@@ -1,0 +1,31 @@
+
+body{
+    width: 100%;
+}
+.messages{
+    color: red;
+}
+.part{
+    display: inline-block;
+    margin: 20px;
+    text-align: right;
+}
+.right{
+    text-align: right;
+    vertical-align: top;
+    margin: 30px 0px 0px 0px;
+}
+.identifer{
+    /* display: inline-block; */
+    text-align: left;
+}
+h2{
+    text-align: center;
+}
+.topright{
+    text-align: right;
+}
+
+.right > a{
+    display: block;
+}

@@ -1,0 +1,25 @@
+h1{
+    color: blue;
+}
+h2{
+    color: red;
+}
+
+textarea, input{
+    width: 90%;
+}
+.textContainer{
+    text-align: center;
+}
+
+.postMessageContainer{
+    vertical-align: top;
+    text-align: right;
+    margin-right: 40px;
+}
+.messageContainer{
+    background-color: burlywood;
+}
+.commentContainer{
+    background-color: coral;
+}

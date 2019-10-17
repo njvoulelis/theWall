@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>viewWall.html</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'wallApp/css/viewWall.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">The Wall</a>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Current User: {{request.session.username}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container MessageContainer">
+        <form action="/postMessage" method="POST">
+            {% csrf_token %}
+            <h3>Post a Message:</h3>
+            <div class="form-group textContainer">
+                <textarea name="postMessage" rows="7"></textarea>
+                <input type="hidden" name="messageID" id="{{newMessage.id}}">
+            </div>
+            <div class="form-group postMessageContainer">
+                <button>Post Message</button>
+            </div>
+        </form>
+    </div>
+    <div class="container messageContainer">
+        {% for message in messages reversed %}
+            <h6>Message #{{message.id}} by: {{message.user.username}} on {{message.createdAt}}</h6>
+            <p>{{message.message}}</p>
+            {% for comment in message.comments.all %}
+                <div class="container commentContainer">
+                    <h6>Comment by: {{comment.user.username}} on {{comment.createdAt}}</h6>
+                    <p>{{comment.comment}}</p>
+                </div>
+                <div>
+                    {% if request.session.userid == comment.user.id %}
+                        <form action="/deleteComment" method="POST">
+                            {% csrf_token %}
+                            <button>Delete</button>
+                            <input type="hidden" name="commentID" value="{{comment.id}}">
+                        </form>
+                        <p>Comment id {{comment.id}}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+                <div class="container MessageContainer">
+                    <form action="/postComment" method="POST">
+                        {% csrf_token %}
+                        <h4>Post a comment:</h4>
+                        <div class="form-group textContainer">
+                            <textarea name="postComment" rows="4"></textarea>
+                            <input type="hidden" name="messageID" value="{{message.id}}">
+                            <p>{{message.id}}</p>
+                        </div>
+                        <div class="form-group postMessageContainer">
+                            <button>Post Comment</button>
+                        </div>
+                    </form>
+        {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

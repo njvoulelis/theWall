@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'logRegApp/css/style.css' %}">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">The Wall</a>
+        <ul class="navbar-nav">
+        </ul>
+    </nav>
+    <div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <div class="part left">
+                    <form action="/process" method="POST">
+                        {% csrf_token %}
+                        <div class="container">
+                            <h2>Register:</h2>
+                            <div class="identifer">First Name:</div> 
+                            <div class="form-group">
+                                <input type="text" name="firstName">
+                            </div>
+                            <div class="identifer">Last Name:</div>
+                            <div class="form-group">
+                                <input type="text" name="lastName">
+                            </div>
+                            <div class="identifer">Username:</div>
+                            <div class="form-group">
+                                <input type="text" name="username">
+                            </div>
+                            <div class="identifer">Email:</div>
+                            <div class="form-group">
+                                <input type="text" name="email">
+                            </div>
+                            <div class="identifer">Password:</div>
+                            <div class="form-group">
+                                <input type="password" name="password">
+                            </div>
+                            <div class="identifer">Confirm Password:</div>
+                            <div class="form-group">
+                                <input type="password" name="confPassword">
+                            </div>
+                            <button>Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="part right">
+                    <div class="topright">
+                        <h2>Login:</h2>
+                        <form action="/login" method="POST">
+                            {% csrf_token %}
+                            <div class="identifer">Email:</div>
+                            <div class="form-group">
+                                <input type="text" name="email">
+                            </div>
+                            <div class="identifer">Password:</div>
+                            <div class="form-group">
+                                <input type="password" name="password">
+                            </div>
+                            <button>Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
